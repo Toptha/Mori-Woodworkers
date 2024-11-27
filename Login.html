@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wooden Theme Sign In/Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Jetbrains Mono, Menio, Monaco, 'Courier New', monospace, Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #2C1810;
+        }
+
+        .container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            margin: 20px;
+        }
+
+        .blueBg {
+            position: absolute;
+            top: 40px;
+            width: 100%;
+            height: 420px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #8B4513;
+            box-shadow: 0 5px 45px rgba(0, 0, 0, 0.3);
+            border: 8px solid #5C2E0A;
+            border-radius: 10px;
+        }
+
+        .blueBg .box {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .blueBg .box h2 {
+            color: #DEB887;
+            font-size: 1.2em;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .blueBg .box button {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: #D2691E;
+            color: #FFF8DC;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: 2px solid #8B4513;
+        }
+
+        .blueBg .box button:hover {
+            background: #8B4513;
+        }
+
+        .formBx {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 45px rgba(139, 69, 19, 0.5);
+            transition: 0.5s ease-in-out;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .formBx.active {
+            left: 50%;
+        }
+
+        .formBx .form {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            padding: 50px;
+            transition: 0.5s;
+        }
+
+        .formBx .signinForm {
+            transition-delay: 0.25s;
+        }
+
+        .formBx.active .signinForm {
+            left: -100%;
+            transition-delay: 0s;
+        }
+
+        .formBx .signupForm {
+            left: 100%;
+            transition-delay: 0s;
+        }
+
+        .formBx.active .signupForm {
+            left: 0;
+            transition-delay: 0.25s;
+        }
+
+        .formBx .form form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .formBx .form form h3 {
+            font-size: 1.5em;
+            color: #DEB887;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .formBx .form form input {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
+            outline: none;
+            font-size: 16px;
+            border: 2px solid #DEB887;
+            border-radius: 5px;
+        }
+
+        .formBx .form form input[type="submit"] {
+            background: #D2691E;
+            border: none;
+            color: #FFF8DC;
+            max-width: 100px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .formBx .form form input[type="submit"]:hover {
+            background: #8B4513;
+        }
+
+        .formBx .form form .forgot {
+            color: #DEB887;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .formBx .form form .forgot:hover {
+            color: #FFF8DC;
+        }
+
+        .error {
+            color: #FFB6C1;
+            font-size: 14px;
+            margin-top: -15px;
+            margin-bottom: 10px;
+        }
+
+        .formBx .form form input:not([type="submit"]) {
+            background-color: rgba(222, 184, 135, 0.1);
+            color: #FFF8DC;
+            border-radius: 5px;
+        }
+
+        .formBx .form form input:not([type="submit"]):focus {
+            background-color: rgba(222, 184, 135, 0.2);
+            border-color: #DEB887;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 2px;
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 16px;
+            top: 32%;
+            transform: translateY(-50%);
+            font-size: 17px;
+            color: #DEB887;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus ~ label,
+        .input-group input:valid ~ label {
+            top: -15%;
+            left: 15px;
+            font-size: 12px;
+            background-color: #8B4513;
+            padding: 0 5px;
+            color: #DEB887;
+            border-radius: 3px;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #DEB887;
+            left: 0;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            margin-right: 8px;
+            width: auto;
+            left: 0;
+            accent-color: #D2691E;
+        }
+
+        .terms-checkbox label {
+            position: static;
+            transform: none;
+            font-style: italic;
+            cursor: pointer;
+            font-size: 14px;
+            background: none;
+            padding: 0;
+        }
+
+        .terms-checkbox a {
+            color: #DEB887;
+            text-decoration: underline;
+            transition: 0.3s;
+        }
+
+        .terms-checkbox a:hover {
+            color: #FFF8DC;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="blueBg">
+            <div class="box signin">
+                <h2>Already an Existing User?</h2>
+                <button class="signinBtn">Sign in</button>
+            </div>
+            <div class="box signup">
+                <h2>Don't have an account?</h2>
+                <button class="signupBtn">Sign up</button>
+            </div>
+        </div>
+        <div class="formBx">
+            <div class="form signinForm">
+                <form>
+                    <h3>Welcome Back</h3>
+                    <div class="input-group">
+                        <input type="text" name="username" required>
+                        <label>Username</label>
+                    </div>
+                    <div id="signinUsernameError" class="error"></div>
+                    
+                    <div class="input-group">
+                        <input type="password" name="password" required>
+                        <label>Password</label>
+                    </div>
+                    <div id="signinPasswordError" class="error"></div>
+                    
+                    <center><br><input type="submit" value="Login"><br>
+                    <a href="forgot-password.html" class="forgot">Forgot Password</a><br><br>
+                    <a href="index.html" class="forgot">Home</a></center>
+                </form>
+            </div>
+            <div class="form signupForm">
+                <form>
+                    <h3>Sign Up</h3>
+                    <div class="input-group">
+                        <input type="text" name="username" required>
+                        <label>Username</label>
+                    </div>
+                    <div id="signupUsernameError" class="error"></div>
+                    
+                    <div class="input-group">
+                        <input type="email" name="email" required>
+                        <label>Email Address</label>
+                    </div>
+                    <div id="signupEmailError" class="error"></div>
+                    
+                    <div class="input-group">
+                        <input type="password" name="password" required>
+                        <label>Password</label>
+                    </div>
+                    <div id="signupPasswordError" class="error"></div>
+                    
+                    <div class="input-group">
+                        <input type="password" name="confirm_password" required>
+                        <label>Confirm Password</label>
+                    </div>
+                    <div id="signupConfirmPasswordError" class="error"></div>
+                    
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I have read the <a href="tc.html">Terms & Conditions</a></label>
+                    </div>
+                    <br>
+                    <center><input type="submit" value="Register"><br>
+                    <a href="index.html" class="forgot">Home</a></center>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const signinBtn = document.querySelector('.signinBtn');
+const signupBtn = document.querySelector('.signupBtn');
+const formBx = document.querySelector('.formBx');
+const body = document.querySelector('body');
+
+signupBtn.onclick = function() {
+    formBx.classList.add('active');
+    body.classList.add('active');
+}
+
+signinBtn.onclick = function() {
+    formBx.classList.remove('active');
+    body.classList.remove('active');
+}
+
+const signinForm = document.querySelector('.signinForm');
+const signupForm = document.querySelector('.signupForm');
+
+signinForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if(validateSigninForm()) {
+        const formData = new FormData();
+        formData.append('username', this.querySelector('[name="username"]').value.trim());
+        formData.append('password', this.querySelector('[name="password"]').value.trim());
+
+        fetch('login.php', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include' 
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                localStorage.setItem('username', data.username);
+                window.location.replace('index.html');
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during login');
+        });
+    }
+});
+
+signupForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if(validateSignupForm()) {
+        const formData = new FormData();
+        formData.append('username', this.querySelector('[name="username"]').value.trim());
+        formData.append('email', this.querySelector('[name="email"]').value.trim());
+        formData.append('password', this.querySelector('[name="password"]').value.trim());
+
+        fetch('sign.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            if(data.includes("Error")) {
+                alert(data);
+            } else {
+                window.location.href = 'index.html';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during signup');
+        });
+    }
+});
+
+function validateSigninForm() {
+    const form = document.querySelector('.signinForm');
+    const username = form.querySelector('[name="username"]').value.trim();
+    const password = form.querySelector('[name="password"]').value.trim();
+    let isValid = true;
+
+    if(username === '') {
+        document.getElementById('signinUsernameError').textContent = 'Username is required';
+        isValid = false;
+    } else {
+        document.getElementById('signinUsernameError').textContent = '';
+    }
+
+    if(password === '') {
+        document.getElementById('signinPasswordError').textContent = 'Password is required';
+        isValid = false;
+    } else {
+        document.getElementById('signinPasswordError').textContent = '';
+    }
+
+    return isValid;
+}
+
+function validateSignupForm() {
+    const form = document.querySelector('.signupForm');
+    const username = form.querySelector('[name="username"]').value.trim();
+    const email = form.querySelector('[name="email"]').value.trim();
+    const password = form.querySelector('[name="password"]').value.trim();
+    const confirmPassword = form.querySelector('[name="confirm_password"]').value.trim();
+    let isValid = true;
+
+    if(username === '') {
+        document.getElementById('signupUsernameError').textContent = 'Username is required';
+        isValid = false;
+    } else if(username.length < 3) {
+        document.getElementById('signupUsernameError').textContent = 'Username must be at least 3 characters';
+        isValid = false;
+    } else {
+        document.getElementById('signupUsernameError').textContent = '';
+    }
+
+    if(email === '') {
+        document.getElementById('signupEmailError').textContent = 'Email is required';
+        isValid = false;
+    } else if(!isValidEmail(email)) {
+        document.getElementById('signupEmailError').textContent = 'Invalid email format';
+        isValid = false;
+    } else {
+        document.getElementById('signupEmailError').textContent = '';
+    }
+
+    if(password === '') {
+        document.getElementById('signupPasswordError').textContent = 'Password is required';
+        isValid = false;
+    } else if(password.length < 6) {
+        document.getElementById('signupPasswordError').textContent = 'Password must be at least 6 characters';
+        isValid = false;
+    } else {
+        document.getElementById('signupPasswordError').textContent = '';
+    }
+
+    if(confirmPassword === '') {
+        document.getElementById('signupConfirmPasswordError').textContent = 'Please confirm your password';
+        isValid = false;
+    } else if(confirmPassword !== password) {
+        document.getElementById('signupConfirmPasswordError').textContent = 'Passwords do not match';
+        isValid = false;
+    } else {
+        document.getElementById('signupConfirmPasswordError').textContent = '';
+    }
+
+    return isValid;
+}
+
+function isValidEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+function checkLoginStatus() {
+    fetch('check_session.php')
+        .then(response => response.text())
+        .then(data => {
+            if(data === 'logged_in') {
+                document.querySelector('.login-btn').textContent = 'Account ▾';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+document.addEventListener('DOMContentLoaded', checkLoginStatus);
+    </script>
+</body>
+</html>
