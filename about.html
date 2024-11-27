@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mori Woodworkers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jetbrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace, Arial, sans-serif;;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #fafafa;
+        }
+
+        .section {
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .heading {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .subheading {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .text-content {
+            max-width: 700px;
+            margin: 2rem auto;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .learn-more {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .learn-more a {
+            color: #333;
+            text-decoration: underline;
+            font-size: 0.9rem;
+        }
+
+        .learn-more a:hover {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <h1 class="heading">About</h1>
+        <div class="subheading">Mori WOODWORKERS<br>The Furniture Studio</div>
+        
+        <div class="image-container">
+            <img src="studio.jpg" alt="Historical photo of Mori woodworking studio">
+        </div>
+
+        <div class="text-content">
+            <p>In 1945, George Mori opened his woodworking business simply to earn a living using the skills he had learned as an Eagle Scout in the Pacific Northwest, as an architect in the Far East, and as a woodworker in the Idaho desert.</p>
+            <br>
+            <p>We continue to custom-mill sustainably harvested hardwoods—maximizing both yield and their innate beauty—and to select the resulting planks individually for each project. We strive to create the "antiques of the future" as a collaborative, integrated process throughout which designer and maker work hand-in-hand, now guided by Mira Mori's keen sensibility.</p>
+        </div>
+
+        <div class="learn-more">
+            <a href="#">Learn more about our history and team here</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="heading">Mori Foundation for Peace</h2>
+        <div class="subheading">The Nonprofit Organization</div>
+
+        <div class="image-container">
+            <img src="foundation.jpg" alt="Craftsman working on large wood piece">
+        </div>
+
+        <div class="text-content">
+            <p>It was George Mori's dream to provide Altars of Peace for each of the seven continents on the planet, seven "small points of light encircling the globe." The Mori Foundation for Peace is dedicated to seeing George's dream realized.</p>
+        </div>
+
+        <div class="learn-more">
+            <a href="http://www.nakashimafoundation.org">Learn more by visiting www.Morifoundation.org</a>
+        </div>
+    </section>
+    <section class="end">
+        <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/bottom-image-about-2560x1182.jpg" alt="">
+    </section>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+        setTimeout(() => {
+            document.querySelector('.section').classList.add('visible');
+        }, 100);
+    </script>
+</body>
+</html>

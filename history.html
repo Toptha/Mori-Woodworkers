@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nakashima Woodworkers - History & Team</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <title>Mori Woodworkers - History & Team</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Jetbrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace, Arial, sans-serif;
         }
 
         body {
@@ -29,38 +27,24 @@
             position: relative;
         }
 
-        .nav {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 100;
-        }
-
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-
-        .nav a:hover {
-            opacity: 1;
-        }
-
         .section {
             min-height: 100vh;
-            padding: 5rem 10%;
             position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .timeline-section {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 5rem 10%;
         }
 
         .timeline-content {
@@ -72,6 +56,7 @@
             height: 900px;
             background: url('https://nakashimawoodworkers.com/wp-content/uploads/2017/05/George-2yo-768x1100.jpg');
             background-size: cover;
+            border-radius: 15px;
         }
 
         h1 {
@@ -106,7 +91,14 @@
             background: rgba(255,255,255,0.05);
             padding: 2rem;
             border-radius: 4px;
-            transition: transform 0.3s;
+            transition: transform 0.3s, opacity 0.5s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .team-member.fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .team-member:hover {
@@ -116,7 +108,7 @@
         .team-image {
             width: 100%;
             height: 400px;
-            background: url('/api/placeholder/600/800') center/cover;
+            background: url('https://nakashimawoodworkers.com/wp-content/uploads/2018/01/craftsment-chair-320x480.jpg');
             margin-bottom: 1.5rem;
         }
 
@@ -128,6 +120,115 @@
             background: rgba(255,255,255,0.1);
         }
 
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .nav__logo, .nav__link {
+            color: #fd7835;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .nav__logo {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .nav__menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav__link {
+            font-size: 0.875rem;
+        }
+
+        .nav__more {
+            position: relative;
+        }
+
+        .nav__ellipsis {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #fd7835;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px; 
+            height: 100%;
+            width: 300px;
+            background-color: #1a1a1a;
+            box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1rem;
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            transform: translateX(-300px);
+            opacity: 1;
+            right: 0;
+        }
+
+        .sidebar__link {
+            color: #fd7835;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar__link:hover {
+            color: #1a1a1a;
+            background-color: #fd7835;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .content-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 4rem;
+            padding: 5rem 10%;
+            min-height: 100vh;
+        }
+
+        .content-section__text {
+            flex: 1;
+        }
+
+        .content-section__image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content-section__image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
         @media (max-width: 768px) {
             .timeline-section {
                 flex-direction: column;
@@ -136,34 +237,31 @@
             .timeline-content, .timeline-image {
                 width: 100%;
             }
-            
-            .nav {
-                display: none;
+
+            .content-section {
+                flex-direction: column;
+                gap: 2rem;
             }
-
-            .section__reverse .section {
-            direction: ltr;
-            }
-        }
-        .section
-
-        .section__reverse .section {
-        direction: rtl;
-        }
-
-        .section__reverse .section {
-            direction: ltr;
         }
     </style>
 </head>
 <body>
     <nav class="nav">
-        <a href="#timeline">Timeline</a>
-        <a href="#george">George</a>
-        <a href="#mira">Mira</a>
-        <a href="#kevin">Kevin</a>
-        <a href="#team">Team</a>
+        <a href="index.html" class="nav__logo">Serene Mori Woodworkers</a>
+        <ul class="nav__menu">
+            <li><a href="furniture.html" class="nav__link">Furniture</a></li>
+            <li><a href="philosophy.html" class="nav__link">Philosophy</a></li>
+            <li class="nav__more">
+                <span class="nav__ellipsis">•••</span>
+            </li>
+        </ul>
     </nav>
+
+    <div class="sidebar">
+        <a href="furniture.html" class="sidebar__link">Furniture</a>
+        <a href="philosophy.html" class="sidebar__link">Philosophy</a>
+        <a href="about.html" class="sidebar__link">About Us</a>
+    </div>
 
     <section class="hero">
         <h1>HISTORY & TEAM</h1>
@@ -171,30 +269,46 @@
 
     <section id="timeline" class="section timeline-section">
         <div class="timeline-content">
-            <h2>NAKASHIMA TIMELINE</h2>
-            <p>In Spokane, Washington, George is born to a family that values artistry and craftsmanship deeply.</p>
+            <h2>Mori TIMELINE</h2>
+            <p>In Spokane, Washington, Ayaka is born to a family that values artistry and craftsmanship deeply.</p>
         </div>
         <div class="timeline-image"></div>
     </section>
 
-    <section id="george" class="section section__reverse">
-        <h2>GEORGE NAKASHIMA</h2>
-        <p>George Nakashima began his furniture business as a revolutionary woodworker, approaching the practice of woodworking with deep respect and artistry.</p>
+    <section id="Ayaka" class="section content-section">
+        <div class="content-section__text">
+            <h2>Ayaka Mori</h2>
+            <p>Ayaka Mori began his furniture business as a revolutionary woodworker, approaching the practice of woodworking with deep respect and artistry.</p>
+        </div>
+        <div class="content-section__image">
+            <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/george-mira-chair-320x480.jpg" alt="Ayaka Mori">
+        </div>
+    </section>
+    
+    <section id="mira" class="section content-section">
+        <div class="content-section__text">
+            <h2>MIRA Mori</h2>
+            <p>Mira's work grows from her father's philosophy and legacy, bringing her own profound understanding to the craft.</p>
+        </div>
+        <div class="content-section__image">
+            <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/mira-nakashima-320x427.jpg" alt="MIRA Mori">
+        </div>
     </section>
 
-    <section id="mira" class="section">
-        <h2>MIRA NAKASHIMA</h2>
-        <p>Mira's work grows from her father's philosophy and legacy, bringing her own profound understanding to the craft.</p>
-    </section>
-
-    <section id="kevin" class="section">
-        <h2>KEVIN NAKASHIMA</h2>
-        <p>From an early age, Kevin established his path in woodworking, carrying forward the family tradition.</p>
+    <section id="kevin" class="section content-section">
+        <div class="content-section__text">
+            <h2>KEVIN Mori</h2>
+            <p>From an early age, Kevin established his path in woodworking, carrying forward the family tradition.</p>
+        </div>
+        <div class="content-section__image">
+            <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/Kevin-door-2016-320x480.jpg" alt="KEVIN Mori">
+        </div>
     </section>
 
     <section id="team" class="section">
-        <h2>NAKASHIMA TEAM</h2>
-        <p>Each team member brings a different gift to our work. Some have worked in woodworking, others have expertise in different areas.</p>
+        <center><h2>Mori TEAM</h2>
+            <p style="text-align: center;">Each team member brings a different gift to our work. Some have worked in woodworking, others have expertise in different areas.</p>
+        </center>
         <div class="team-grid">
             <div class="team-member">
                 <div class="team-image"></div>
@@ -209,36 +323,39 @@
             <div class="team-member">
                 <div class="team-image"></div>
                 <h3>Legacy</h3>
-                <p>Continuing the Nakashima tradition</p>
+                <p>Continuing the Mori tradition</p>
             </div>
         </div>
     </section>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-        
-        gsap.from('.section', {
-            opacity: 0,
-            y: 100,
-            duration: 1,
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: '.section',
-                start: 'top center',
-                end: 'bottom center',
-                scrub: 1
-            }
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const ellipsisButton = document.querySelector('.nav__ellipsis');
+            const sidebar = document.querySelector('.sidebar');
+            const sections = document.querySelectorAll('.section');
+            const teamMembers = document.querySelectorAll('.team-member');
+            ellipsisButton.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
 
-        gsap.from('.team-member', {
-            opacity: 0,
-            y: 50,
-            duration: 0.5,
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: '.team-grid',
-                start: 'top center'
-            }
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !ellipsisButton.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => {
+                fadeInObserver.observe(section);
+            });
+            teamMembers.forEach(member => {
+                fadeInObserver.observe(member);
+            });
         });
     </script>
 </body>

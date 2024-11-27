@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mori Woodworkers - Philosophy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Jetbrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace, Arial, sans-serif;
+        }
+        body {
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h1 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+        .quote {
+            font-size: 2rem;
+            font-style: italic;
+            max-width: 800px;
+            margin: 2rem 0;
+        }
+        .image-container {
+            max-width: 100%;
+            margin: 2rem 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        p {
+            max-width: 600px;
+            margin-bottom: 1rem;
+        }
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+        .nav__logo, .nav__link {
+            color: #fd7835;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .nav__logo {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .nav__menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav__link {
+            font-size: 0.875rem;
+        }
+        .nav__more {
+            position: relative;
+        }
+        .nav__ellipsis {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #fd7835;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px; 
+            height: 100%;
+            width: 300px;
+            background-color: #1a1a1a;
+            box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1rem;
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+            opacity: 0;
+            z-index: 1000;
+        }
+        .sidebar.active {
+            transform: translateX(-300px);
+            opacity: 1;
+            right: 0;
+        }
+        .sidebar__link {
+            color: #fd7835;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .sidebar__link:hover {
+            color: #1a1a1a;
+            background-color: #fd7835;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .section-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+            .section-content.reverse {
+                flex-direction: row-reverse;
+            }
+            .image-container, .text-container {
+                width: 48%;
+            }
+        }
+        .image-container {
+            margin-bottom: 20px;
+        }
+        @media (min-width: 768px) {
+            .image-container {
+                margin-bottom: 0;
+            }
+        }
+        .text-container p {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav__logo">Serene Mori Woodworkers</a>
+        <ul class="nav__menu">
+            <li><a href="furniture.html" class="nav__link">Furniture</a></li>
+            <li><a href="philosophy.html" class="nav__link">Philosophy</a></li>
+            <li class="nav__more">
+                <span class="nav__ellipsis">•••</span>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="sidebar">
+        <a href="furniture.html" class="sidebar__link">Furniture</a>
+        <a href="philosophy.html" class="sidebar__link">Philosophy</a>
+        <a href="about.html" class="sidebar__link">About Us</a>
+    </div>
+    <br><br><br><br><br><br><br>
+    <section id="philosophy" class="section">
+       <center><h1>Philosophy</h1>
+        <div class="quote">
+            "Instead of a long running and steady battle with nature to dominate her, we can walk in step with a tree to release its joy, to join with her to realize her potentialities, to enhance the environments of man"
+        </div>
+        <p>— Ayaka Mori</p></center><br><br><br> <br><br><br> <br><br><br> <br><br><br> 
+        <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/george-chair-frame.jpg" alt="">
+    </section>
+
+    <section id="tree" class="section">
+        <h1 style="text-align: center;">The Tree</h1><br>
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/philosophy-tree-320x480.jpg" alt="A tree in nature">
+            </div>
+            <div class="text-container">
+                <p>THE DESTINY OF A TREE</p>
+                <p>A tree is perhaps our most intimate contact with nature. Each tree springs from a tiny seedling, like ourselves, and grows through youth, maturity, and old age. We believe a tree should be treated with the greatest respect, to be understood through our work, and to be realized through our craft.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="wood" class="section">
+        <h1 style="text-align: center;">Wood</h1><br>
+        <div class="section-content reverse">
+            <div class="image-container">
+                <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/wood-board-shed-320x480.jpg" alt="Wood boards in a shed">
+            </div>
+            <div class="text-container">
+                <p>SOLID WOOD</p>
+                <p>Wood is a living material, with its own life. It breathes, swells, and contracts with the seasons. The grain speaks to us of the tree's life and growth. We work with the wood, never against it, to bring out its individual character and beauty.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="woodworker" class="section">
+        <h1 style="text-align: center;">The Woodworker</h1><br>
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/woodworker-image-4-320x480.jpg" alt="A woodworker in their workshop">
+            </div>
+            <div class="text-container">
+                <p>A THOUSAND SKILLS</p>
+                <p>Woodworking requires many skills for the thousand jobs that must be done. Our studio calls upon a craftsman's determination, and love to build as perfect an object as possible.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const sections = document.querySelectorAll('.section');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const ellipsisButton = document.querySelector('.nav__ellipsis');
+            const sidebar = document.querySelector('.sidebar');
+
+            ellipsisButton.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !ellipsisButton.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
