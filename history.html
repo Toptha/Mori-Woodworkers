@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nakashima Woodworkers - History & Team</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://nakashimawoodworkers.com/wp-content/uploads/2017/05/history-hero-light-1280x885.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .nav a:hover {
+            opacity: 1;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 5rem 10%;
+            position: relative;
+        }
+
+        .timeline-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .timeline-content {
+            width: 50%;
+        }
+
+        .timeline-image {
+            width: 50%;
+            height: 900px;
+            background: url('https://nakashimawoodworkers.com/wp-content/uploads/2017/05/George-2yo-768x1100.jpg');
+            background-size: cover;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            max-width: 600px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .team-member {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 4px;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-image {
+            width: 100%;
+            height: 400px;
+            background: url('/api/placeholder/600/800') center/cover;
+            margin-bottom: 1.5rem;
+        }
+
+        .year-marker {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-section {
+                flex-direction: column;
+            }
+            
+            .timeline-content, .timeline-image {
+                width: 100%;
+            }
+            
+            .nav {
+                display: none;
+            }
+
+            .section__reverse .section {
+            direction: ltr;
+            }
+        }
+        .section
+
+        .section__reverse .section {
+        direction: rtl;
+        }
+
+        .section__reverse .section {
+            direction: ltr;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#timeline">Timeline</a>
+        <a href="#george">George</a>
+        <a href="#mira">Mira</a>
+        <a href="#kevin">Kevin</a>
+        <a href="#team">Team</a>
+    </nav>
+
+    <section class="hero">
+        <h1>HISTORY & TEAM</h1>
+    </section>
+
+    <section id="timeline" class="section timeline-section">
+        <div class="timeline-content">
+            <h2>NAKASHIMA TIMELINE</h2>
+            <p>In Spokane, Washington, George is born to a family that values artistry and craftsmanship deeply.</p>
+        </div>
+        <div class="timeline-image"></div>
+    </section>
+
+    <section id="george" class="section section__reverse">
+        <h2>GEORGE NAKASHIMA</h2>
+        <p>George Nakashima began his furniture business as a revolutionary woodworker, approaching the practice of woodworking with deep respect and artistry.</p>
+    </section>
+
+    <section id="mira" class="section">
+        <h2>MIRA NAKASHIMA</h2>
+        <p>Mira's work grows from her father's philosophy and legacy, bringing her own profound understanding to the craft.</p>
+    </section>
+
+    <section id="kevin" class="section">
+        <h2>KEVIN NAKASHIMA</h2>
+        <p>From an early age, Kevin established his path in woodworking, carrying forward the family tradition.</p>
+    </section>
+
+    <section id="team" class="section">
+        <h2>NAKASHIMA TEAM</h2>
+        <p>Each team member brings a different gift to our work. Some have worked in woodworking, others have expertise in different areas.</p>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-image"></div>
+                <h3>Craftsmanship</h3>
+                <p>Dedicated to preserving traditional woodworking techniques</p>
+            </div>
+            <div class="team-member">
+                <div class="team-image"></div>
+                <h3>Design</h3>
+                <p>Bringing modern vision to timeless craft</p>
+            </div>
+            <div class="team-member">
+                <div class="team-image"></div>
+                <h3>Legacy</h3>
+                <p>Continuing the Nakashima tradition</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        gsap.from('.section', {
+            opacity: 0,
+            y: 100,
+            duration: 1,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: '.section',
+                start: 'top center',
+                end: 'bottom center',
+                scrub: 1
+            }
+        });
+
+        gsap.from('.team-member', {
+            opacity: 0,
+            y: 50,
+            duration: 0.5,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: '.team-grid',
+                start: 'top center'
+            }
+        });
+    </script>
+</body>
+</html>
