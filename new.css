@@ -1,0 +1,43 @@
+:root {
+    --text: #d4c8bc;
+    --clr: #332211;
+    --clr2: #574433;
+    --gradgap: 40%;
+    --gradoffset: 70%;
+    --hue: 30;
+    --sat: 40%;
+    --hue2: 35;
+    --sat2: 30%;
+    --blur: 10px;
+    --primary-light: #43362a;
+    --secondary-color: #e1cf56;
+    --secondary-light: #afe126;
+    --secondary-dark: #8f9d2a;
+    --text-secondary: #a19587;
+    --background-light: #f1eae2;
+    --background-dark: #3c2518;
+    --ff-recoleta: "Recoleta", serif;
+    --ff-cinzel: "Cinzel", serif;
+  }
+  
+  /* Keep the existing CSS rules, but update the following: */
+  
+  body {
+
+  }
+  
+  .header {
+
+  }
+  
+  .search_container {
+
+  }
+  
+  #about {
+
+  }
+  
+  /* Add any additional styles or modifications as needed */
+  
+  

@@ -19,24 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const ellipsisButton = document.querySelector('.nav__ellipsis');
     const sidebar = document.querySelector('.sidebar');
-    ellipsisButton.addEventListener('mouseenter', () => {
-        sidebar.style.transform = 'translateX(-300px)';
-        sidebar.style.opacity = '1';
-        sidebar.style.right = '0';
+
+    ellipsisButton.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
     });
-    sidebar.addEventListener('mouseleave', () => {
-        sidebar.style.transform = '';
-        sidebar.style.opacity = '0';
-        sidebar.style.right = '-300px';
-    });
-    ellipsisButton.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-            if (!sidebar.matches(':hover')) {
-                sidebar.style.transform = '';
-                sidebar.style.opacity = '0';
-                sidebar.style.right = '-300px';
-            }
-        }, 300); 
+
+    document.addEventListener('click', (event) => {
+        if (!sidebar.contains(event.target) && !ellipsisButton.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
     });
 });
 
