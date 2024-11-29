@@ -14,11 +14,8 @@
         body {
             font-family: 'Jetbrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace, Arial, sans-serif;;
             line-height: 1.6;
-            color: #333;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: #fafafa;
+            color: #fd7835;
+            background-color: #333;
         }
 
         .section {
@@ -45,7 +42,7 @@
         .subheading {
             text-align: center;
             font-size: 0.9rem;
-            color: #666;
+            color: #fd7835;
             margin-bottom: 2rem;
         }
 
@@ -74,13 +71,27 @@
         }
 
         .learn-more a {
-            color: #333;
+            color: #fd7835;
             text-decoration: underline;
             font-size: 0.9rem;
         }
 
         .learn-more a:hover {
-            color: #666;
+            color: #86360d;
+        }
+
+        .end{
+            height: 100vh;
+            background: url('https://nakashimawoodworkers.com/wp-content/uploads/2017/05/bottom-image-about-2560x1182.jpg') center/cover no-repeat;
+            display: flex;
+            background-size: cover;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+        }
+        hr{
+            border: 1px solid #fd7835;
         }
     </style>
 </head>
@@ -88,9 +99,10 @@
     <section class="section">
         <h1 class="heading">About</h1>
         <div class="subheading">Mori WOODWORKERS<br>The Furniture Studio</div>
-        
+        <hr>
+        <br>
         <div class="image-container">
-            <img src="studio.jpg" alt="Historical photo of Mori woodworking studio">
+            <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/Nakashima_Woodworker-chair-shop-exterior-768x512.jpg" alt="Historical photo of Mori woodworking studio">
         </div>
 
         <div class="text-content">
@@ -103,13 +115,15 @@
             <a href="#">Learn more about our history and team here</a>
         </div>
     </section>
-
+    <br>
+    <hr>
+    <br>
     <section class="section">
         <h2 class="heading">Mori Foundation for Peace</h2>
         <div class="subheading">The Nonprofit Organization</div>
 
         <div class="image-container">
-            <img src="foundation.jpg" alt="Craftsman working on large wood piece">
+            <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/About.02-768x510.jpg" alt="Craftsman working on large wood piece">
         </div>
 
         <div class="text-content">
@@ -120,9 +134,27 @@
             <a href="http://www.nakashimafoundation.org">Learn more by visiting www.Morifoundation.org</a>
         </div>
     </section>
+    <br>
+    <hr>
+    <br>
     <section class="end">
-        <img src="https://nakashimawoodworkers.com/wp-content/uploads/2017/05/bottom-image-about-2560x1182.jpg" alt="">
     </section>
+    <br><hr><br>
+    <section class="Map">
+        <br>
+        <h2 style="text-align: center;">Vist Us At:</h2><br>
+        <center><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6498.343749205583!2d138.6805563!3d35.4752911!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601be1bde97fa095%3A0xd9e134cb8d225681!2z6bO05rKi44Kz44Km44Oi44Oq56m0!5e0!3m2!1sen!2sin!4v1732869053640!5m2!1sen!2sin" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></center>
+    </section>
+    <hr>
+    <section>
+        <h2 style="text-align: center;">Contact Us</h2>
+        <div style="text-align: center;">
+            <p>Phone: 123-456-7890</p>
+            <p>Email: new@gmail.com</p>
+    </section>
+    <footer>
+        <p style="text-align: center;">&copy 2021 Mori Woodworkers</p>
+    </footer>
     <script>
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
