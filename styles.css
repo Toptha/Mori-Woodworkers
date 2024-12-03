@@ -315,6 +315,12 @@ body {
     z-index: 1000;
 }
 
+.sidebar.active {
+    transform: translateX(-300px); 
+    opacity: 1;
+    right: 0;
+}
+
 .sidebar__link {
     color: #fd7835;
     text-decoration: none;

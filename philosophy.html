@@ -98,7 +98,7 @@
             top: 0;
             right: -300px; 
             height: 100%;
-            width: 300px;
+            width: 350px;
             background-color: #1a1a1a;
             box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
             display: flex;
@@ -107,9 +107,11 @@
             transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
             opacity: 0;
             z-index: 1000;
+            border-radius: 20px;
+            text-align: center;
         }
         .sidebar.active {
-            transform: translateX(-300px);
+            transform: translateX(10px);
             opacity: 1;
             right: 0;
         }
@@ -176,6 +178,7 @@
         <a href="furniture.html" class="sidebar__link">Furniture</a>
         <a href="philosophy.html" class="sidebar__link">Philosophy</a>
         <a href="about.html" class="sidebar__link">About Us</a>
+        <a href="Login.html" class="sidebar__link">Login/Signup</a>
     </div>
     <br><br><br><br><br><br><br>
     <section id="philosophy" class="section">
