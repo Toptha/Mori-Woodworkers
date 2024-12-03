@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, {
         threshold: 0.1
-    });
-    document.querySelectorAll('.content__text, .content__image, .furniture__content').forEach(el => {
+});
+document.querySelectorAll('.content__text, .content__image, .furniture__content').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';

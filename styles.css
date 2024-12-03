@@ -313,14 +313,14 @@ body {
     transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
     opacity: 0;
     z-index: 1000;
+    border-radius: 20px;
+    text-align: center;
 }
-
 .sidebar.active {
-    transform: translateX(-300px); 
+    transform: translateX(10px);
     opacity: 1;
     right: 0;
 }
-
 .sidebar__link {
     color: #fd7835;
     text-decoration: none;
@@ -329,18 +329,11 @@ body {
     text-transform: uppercase;
     transition: color 0.3s ease;
 }
-
 .sidebar__link:hover {
     color: #1a1a1a;
     background-color: #fd7835;
     padding: 0.5rem;
     border-radius: 5px;
-}
-
-.nav__more:hover .sidebar {
-    transform: translateX(-300px);
-    opacity: 1;
-    right: 0; 
 }
 
 .section {
