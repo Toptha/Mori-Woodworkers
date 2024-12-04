@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Own Furniture | More Woodworkers</title>
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2B48C;
+            --text-color: #fd7835;
+            --background-color: #333;
+            --accent-color: #5D4037;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .furniture-customizer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .preview {
+            flex: 1 1 60%;
+            min-width: 300px;
+        }
+        
+        .furniture-preview {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .controls {
+            flex: 1 1 30%;
+            min-width: 250px;
+        }
+        
+        .control-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        select, input[type="range"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            height: 10px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+        
+        input[type="range"]:hover {
+            opacity: 1;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        
+        .btn-primary, .btn-secondary {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #C1A78A;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0 1rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1 1 30%;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section h3, .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+        
+            .footer-section {
+                flex: 1 1 100%;
+            }
+        }
+
+        .nav__more {
+            position: relative;
+        }
+
+        .nav__ellipsis {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--color-text);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px; 
+            height: 100%;
+            width: 300px;
+            background-color: #1a1a1a;
+            box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1rem;
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+            opacity: 0;
+            z-index: 1000;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .sidebar.active {
+            transform: translateX(10px);
+            opacity: 1;
+            right: 0;
+        }
+        .sidebar__link {
+            color: #fd7835;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .sidebar__link:hover {
+            color: #1a1a1a;
+            background-color: #fd7835;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .nav__logo, .nav__link {
+            color: #fd7835;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .nav__logo {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .nav__menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav__link {
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav__logo">Serene Mori Woodworkers</a>
+        <ul class="nav__menu">
+            <li><a href="furniture.html" class="nav__link">Furniture</a></li>
+            <li><a href="philosophy.html" class="nav__link">Philosophy</a></li>
+            <li class="nav__more">
+                <span class="nav__ellipsis" style="color: #fd7835;">•••</span>
+                <div class="sidebar">
+                    <br>
+                    <a href="Login.html" class="sidebar__link">Login/Signup</a>
+                    <a href="furniture.html" class="sidebar__link">Furniture</a>
+                    <a href="philosophy.html" class="sidebar__link">Philosophy</a>
+                    <a href="create.html" class="sidebar__link">Create Your own <br> Design</a>
+                    <a href="about.html" class="sidebar__link">About Us</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <br><br><br>
+    <main class="container">
+        <h2>Create Your Own Furniture</h2>
+        <p class="intro">Design your perfect piece of furniture using our interactive customization tool.</p>
+
+        <div class="furniture-customizer">
+            <div class="preview">
+                <div id="furniture-preview" class="furniture-preview">
+                    <div id="furniture-label">Table</div>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="control-group">
+                    <label for="furniture-type">Furniture Type</label>
+                    <select id="furniture-type">
+                        <option value="Table">Table</option>
+                        <option value="Chair">Chair</option>
+                        <option value="Bookshelf">Bookshelf</option>
+                        <option value="Bed Frame">Bed Frame</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="wood-type">Wood Type</label>
+                    <select id="wood-type">
+                        <option value="Oak">Oak</option>
+                        <option value="Pine">Pine</option>
+                        <option value="Mahogany">Mahogany</option>
+                        <option value="Walnut">Walnut</option>
+                        <option value="Cherry">Cherry</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="width">Width (cm)</label>
+                    <input type="range" id="width" min="50" max="200" value="100">
+                    <span id="width-value">100 cm</span>
+                </div>
+                <div class="control-group">
+                    <label for="height">Height (cm)</label>
+                    <input type="range" id="height" min="50" max="200" value="100">
+                    <span id="height-value">100 cm</span>
+                </div>
+                <div class="control-group">
+                    <label for="depth">Depth (cm)</label>
+                    <input type="range" id="depth" min="30" max="100" value="50">
+                    <span id="depth-value">50 cm</span>
+                </div>
+                <button id="add-to-cart" class="btn-primary">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>More Woodworkers</h3>
+                    <p>Crafting custom furniture with passion and precision.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Create Furniture</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>123 Woodworking Lane<br>
+                    Carpenter City, WD 12345<br>
+                    Phone: (555) 123-4567<br>
+                    Email: info@morewoodworkers.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 More Woodworkers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const furniturePreview = document.getElementById('furniture-preview');
+            const furnitureLabel = document.getElementById('furniture-label');
+            const furnitureTypeSelect = document.getElementById('furniture-type');
+            const woodTypeSelect = document.getElementById('wood-type');
+            const widthInput = document.getElementById('width');
+            const heightInput = document.getElementById('height');
+            const depthInput = document.getElementById('depth');
+            const widthValue = document.getElementById('width-value');
+            const heightValue = document.getElementById('height-value');
+            const depthValue = document.getElementById('depth-value');
+            const addToCartButton = document.getElementById('add-to-cart');
+        
+            function updatePreview() {
+                const furnitureType = furnitureTypeSelect.value;
+                const woodType = woodTypeSelect.value;
+                const width = widthInput.value;
+                const height = heightInput.value;
+                const depth = depthInput.value;
+        
+                furnitureLabel.textContent = furnitureType;
+                furniturePreview.style.width = `${width * 2}px`;
+                furniturePreview.style.height = `${height * 2}px`;
+        
+                // Update wood texture based on selected wood type
+                const woodTextures = {
+                    Oak: '#D2B48C',
+                    Pine: '#DEB887',
+                    Mahogany: '#8B4513',
+                    Walnut: '#5C4033',
+                    Cherry: '#CD5C5C'
+                };
+                furniturePreview.style.backgroundColor = woodTextures[woodType] || '#D2B48C';
+        
+                widthValue.textContent = `${width} cm`;
+                heightValue.textContent = `${height} cm`;
+                depthValue.textContent = `${depth} cm`;
+            }
+        
+            furnitureTypeSelect.addEventListener('change', updatePreview);
+            woodTypeSelect.addEventListener('change', updatePreview);
+            widthInput.addEventListener('input', updatePreview);
+            heightInput.addEventListener('input', updatePreview);
+            depthInput.addEventListener('input', updatePreview);
+        
+            addToCartButton.addEventListener('click', function() {
+                alert('Item added to cart!');
+            });
+            updatePreview();
+            document.querySelectorAll('.content__text, .content__image, .furniture__content').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(el);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const ellipsisButton = document.querySelector('.nav__ellipsis');
+            const sidebar = document.querySelector('.sidebar');
+        
+            ellipsisButton.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+        
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !ellipsisButton.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        
+    </script>
+</body>
+</html>
+
