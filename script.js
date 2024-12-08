@@ -1,3 +1,9 @@
+window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelector('.entrance-animation').style.display = 'none';
+      document.querySelector('.main-content').classList.add('visible');
+    }, 2000);
+  });
 document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

@@ -15,7 +15,8 @@ body {
     font-family: var(--font);
     line-height: 1.6;
     color: var(--color-text);
-    background-color: var(--color-bg);
+    background-color: black;
+    overflow: hidden;
 }
 
 .nav {
@@ -344,3 +345,54 @@ body {
     background-color: #1a1a1a;
     color: #fd7835;
 }
+
+.entrance-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #873e1a , #333);
+    z-index: 9999;
+    animation: zoomOut 4s ease-out forwards;
+  }
+  .entrance-animation h1 {
+    font-size: 4rem;
+    color: #fd7835;
+    animation: zoomText 8.5s ease-out forwards;
+  }
+
+  @keyframes zoomText {
+    0% {
+      transform: scale(0.2);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.9);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.5);
+    }
+  }
+  @keyframes zoomOut {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2);
+      pointer-events: none;
+    }
+  }
+  .main-content {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .main-content.visible {
+    opacity: 1;
+  }
