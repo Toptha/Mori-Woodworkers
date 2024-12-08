@@ -37,5 +37,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Create an IntersectionObserver to detect when elements come into view
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // If element is in the viewport, add 'visible' class
+                entry.target.classList.add('visible');
+                entry.target.classList.remove('hidden');
+            } else {
+                // If element is out of the viewport, add 'hidden' class
+                entry.target.classList.remove('visible');
+                entry.target.classList.add('hidden');
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is in the viewport
+    });
+
+    // Target elements to animate when scrolling
+    const elementsToAnimate = document.querySelectorAll('.content__text, .content__image, .furniture__content');
+
+    // Initially hide all target elements by adding the 'hidden' class
+    elementsToAnimate.forEach(el => {
+        el.classList.add('hidden');
+    });
+
+    // Observe each element with the IntersectionObserver
+    elementsToAnimate.forEach(el => {
+        observer.observe(el);
+    });
+});
 
 

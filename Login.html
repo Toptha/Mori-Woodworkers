@@ -278,6 +278,27 @@
         .terms-checkbox a:hover {
             color: #FFF8DC;
         }
+
+        input {
+            background-color: #8B4513; 
+            transition: background-color 0.3s ease; 
+          }
+          
+          input:-webkit-autofill {
+            background-color: #8B4513 !important; 
+            -webkit-box-shadow: 0 0 0 1000px #8B4513 inset; 
+            transition: background-color 0.3s ease;
+          }
+          
+          input:-moz-autofill {
+            background-color: #8B4513 !important; 
+          }
+          
+          input:-ms-autofill {
+            background-color: #8B4513 !important;
+          }
+          
+
     </style>
 </head>
 <body>
@@ -548,9 +569,6 @@ goButton.addEventListener('click', function () {
         alert('Geolocation is not supported by your browser.');
     }
 });
-
-
-
     </script>
 </body>
 </html>
