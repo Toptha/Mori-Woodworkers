@@ -342,7 +342,7 @@
                     <div id="signupConfirmPasswordError" class="error"></div>
                     <div class="input-group">
                         <input type="text" name="location" required>
-                        <button>Go</button>
+                        <button type="button">Go</button>
                         <label>Location</label>
                     </div>
 
@@ -509,17 +509,48 @@ function isValidEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
-function checkLoginStatus() {
-    fetch('check_session.php')
-        .then(response => response.text())
-        .then(data => {
-            if(data === 'logged_in') {
-                document.querySelector('.login-btn').textContent = 'Account ▾';
+
+const goButton = document.querySelector('.input-group button');
+const locationInput = document.querySelector('.input-group input[name="location"]');
+
+goButton.addEventListener('click', function () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                const { latitude, longitude } = position.coords;
+
+                fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=250f1bf2dfeb4d098e3a301fd6174d8f`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Debugging: log the full response
+                        if (data.results && data.results.length > 0) {
+                            const components = data.results[0].components;
+                            console.log(components); // Log components to check city info
+
+                            // Try different fields to find the city
+                            const city = components.city || components.locality || components.town || components.village || 'Unknown City';
+                            locationInput.value = city; // Populate the location input with the city name
+                        } else {
+                            alert('Unable to fetch city name. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching city:', error);
+                        alert('Error occurred while fetching city name.');
+                    });
+            },
+            function (error) {
+                console.error('Geolocation error:', error);
+                alert('Unable to retrieve location. Please enable location services.');
             }
-        })
-        .catch(error => console.error('Error:', error));
-}
-document.addEventListener('DOMContentLoaded', checkLoginStatus);
+        );
+    } else {
+        alert('Geolocation is not supported by your browser.');
+    }
+});
+
+
+
     </script>
 </body>
 </html>
