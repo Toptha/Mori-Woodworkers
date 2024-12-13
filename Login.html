@@ -540,7 +540,7 @@ goButton.addEventListener('click', function () {
             function (position) {
                 const { latitude, longitude } = position.coords;
 
-                fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=250f1bf2dfeb4d098e3a301fd6174d8f`)
+                fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=aa5db411343b449589b3a1e6a8617ecf`)
                     .then(response => response.json())
                     .then(data => {
                         console.log(data); // Debugging: log the full response
