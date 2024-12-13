@@ -539,18 +539,24 @@ goButton.addEventListener('click', function () {
         navigator.geolocation.getCurrentPosition(
             function (position) {
                 const { latitude, longitude } = position.coords;
-
-                fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=aa5db411343b449589b3a1e6a8617ecf`)
+                const apiKey = 'AIzaSyD8xyXCeHA4D24MT_Ins3AnEDYOYPuSzzA';
+                fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`)
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data); // Debugging: log the full response
-                        if (data.results && data.results.length > 0) {
-                            const components = data.results[0].components;
-                            console.log(components); // Log components to check city info
+                        console.log(data);
 
-                            // Try different fields to find the city
-                            const city = components.city || components.locality || components.town || components.village || 'Unknown City';
-                            locationInput.value = city; // Populate the location input with the city name
+                        if (data.results && data.results.length > 0) {
+                            const addressComponents = data.results[0].address_components;
+                            console.log(addressComponents);
+
+                            let city = 'Unknown City';
+                            addressComponents.forEach(component => {
+                                if (component.types.includes('locality')) {
+                                    city = component.long_name;
+                                }
+                            });
+
+                            locationInput.value = city;
                         } else {
                             alert('Unable to fetch city name. Please try again.');
                         }
@@ -569,6 +575,7 @@ goButton.addEventListener('click', function () {
         alert('Geolocation is not supported by your browser.');
     }
 });
+
     </script>
 </body>
 </html>
