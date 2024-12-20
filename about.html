@@ -274,7 +274,8 @@
         .sidebar {
             position: fixed;
             top: 0;
-            right: -300px; 
+            right: 0px;
+            transform: translateX(100%); 
             height: 100%;
             width: 350px;
             background-color: rgba(26, 26, 26, 0.8);
@@ -289,9 +290,9 @@
             text-align: center;
         }
         .sidebar.active {
-            transform: translateX(10px);
+            transform: translateX(0);
             opacity: 1;
-            right: 0;
+            
         }
         .sidebar__link {
             color: #fd7835;
@@ -363,19 +364,29 @@
             transform: scale(1.1);
         }
         
-        .carousel-control-prev-icon,.carousel-control-next-icon {
-                filter: invert(100%) sepia(100%) saturate(100%) hue-rotate(190deg) brightness(100%);
-                background-color: #fd7835; 
-            }
+        .swiper-button-next,
+.swiper-button-prev {
+    color: var(--primary-color); 
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
 
-            .carousel-indicators [data-bs-target] {
-                background-color: #fd7835; 
-                opacity: 1; 
-            }
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: #96461e;
+}
 
-            .carousel-indicators [data-bs-target].active {
-                background-color: #fd7835; 
-            }
+.swiper-pagination-bullet {
+    background-color: var(--primary-color);
+    opacity: 1;
+    transition: transform 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #e66a2e; 
+    transform: scale(1.2); 
+}
+
 
     </style>
 </head>
@@ -447,8 +458,6 @@
                 <div class="swiper-pagination"></div>
             </div>
         </section>
-        
-
         <section id="contact" class="section">
             <h2 class="heading">Get in Touch</h2>
             <form id="contact-form">
@@ -547,8 +556,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const ellipsisButton = document.querySelector('.nav__ellipsis');
             const sidebar = document.querySelector('.sidebar');
-            const sections = document.querySelectorAll('.section');
-            const teamMembers = document.querySelectorAll('.team-member');
             ellipsisButton.addEventListener('click', () => {
                 sidebar.classList.toggle('active');
             });
@@ -559,7 +566,8 @@
                 }
             });
         });
-
+        
+        
         
     </script>
 </body>
