@@ -9,10 +9,11 @@
     <xsl:template match="/">
         <html>
             <head>
-                <title>Woodworking Data</title>
+                <title>Serene Mori Woodworkers</title>
             </head>
             <body>
-                <h1>Woodworking Data</h1>
+               <center>
+                <h1>Serene Mori Woodworkers</h1>
                 <table border="1">
                     <thead>
                         <tr>
@@ -49,6 +50,7 @@
                         </xsl:for-each>
                     </tbody>
                 </table>
+                </center> 
             </body>
         </html>
     </xsl:template>

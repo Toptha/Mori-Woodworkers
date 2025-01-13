@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<rss version="2.0">
+  <channel>
+    <title>Mori Woodworkers</title>
+    <link>https://moriwoodworkers.vercel.app/</link>
+    <description>Elevate your space with exquisite handcrafted wooden furniture, blending modern design with timeless craftsmanship.</description>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Jan 2025 12:00:00 GMT</lastBuildDate>
+    <generator>Mori Woodworkers RSS Generator</generator>
+    <image>
+      <url>https://moriwoodworkers.vercel.app/assets/logo.png</url>
+      <title>Mori Woodworkers</title>
+      <link>https://moriwoodworkers.vercel.app/</link>
+    </image>
+
+    <item>
+      <title>New Arrival: Artisan Coffee Tables</title>
+      <link>https://moriwoodworkers.vercel.app/collections/artisan-coffee-tables</link>
+      <description>Explore our artisan coffee tables, crafted with sustainably sourced wood. Each piece is unique, blending elegance and durability, designed to fit seamlessly into modern or rustic spaces.</description>
+      <pubDate>Wed, 08 Jan 2025 14:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://moriwoodworkers.vercel.app/collections/artisan-coffee-tables</guid>
+    </item>
+
+    <item>
+      <title>5 Tips for Sustainable Furniture Shopping</title>
+      <link>https://moriwoodworkers.vercel.app/blog/sustainable-furniture-tips</link>
+      <description>Discover actionable advice for making eco-conscious decisions when buying furniture. Learn about sustainable materials, ethical sourcing, and how Mori Woodworkers supports these principles.</description>
+      <pubDate>Tue, 07 Jan 2025 09:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://moriwoodworkers.vercel.app/blog/sustainable-furniture-tips</guid>
+    </item>
+
+    <item>
+      <title>Winter Sale: Handcrafted Dining Sets</title>
+      <link>https://moriwoodworkers.vercel.app/sale/winter</link>
+      <description>Transform your dining room with up to 40% off our collection of handcrafted dining sets. These limited-time offers feature exquisite designs that bring warmth and character to your home.</description>
+      <pubDate>Mon, 06 Jan 2025 16:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://moriwoodworkers.vercel.app/sale/winter</guid>
+    </item>
+
+    <item>
+      <title>Crafting Stories: The Journey of Sustainable Wood</title>
+      <link>https://moriwoodworkers.vercel.app/blog/journey-of-sustainable-wood</link>
+      <description>Follow the story of how Mori Woodworkers selects sustainable materials to create timeless pieces. From ethical forestry to the artisan’s touch, every piece has a story to tell.</description>
+      <pubDate>Fri, 05 Jan 2025 11:30:00 GMT</pubDate>
+      <guid isPermaLink="true">https://moriwoodworkers.vercel.app/blog/journey-of-sustainable-wood</guid>
+    </item>
+
+    <item>
+      <title>How to Care for Wooden Furniture</title>
+      <link>https://moriwoodworkers.vercel.app/blog/furniture-care-tips</link>
+      <description>Maintain the beauty of your wooden furniture with these simple tips. Learn about cleaning, polishing, and protecting your pieces to ensure they last for generations.</description>
+      <pubDate>Thu, 04 Jan 2025 08:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://moriwoodworkers.vercel.app/blog/furniture-care-tips</guid>
+    </item>
+
+    <item>
+      <title>Custom Furniture Now Available</title>
+      <link>https://moriwoodworkers.vercel.app/custom-orders</link>
+      <description>Looking for something truly unique? Mori Woodworkers now offers custom furniture design. Collaborate with our artisans to bring your dream piece to life.</description>
+      <pubDate>Wed, 03 Jan 2025 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://moriwoodworkers.vercel.app/custom-orders</guid>
+    </item>
+
+    <item>
+      <title>Behind the Workshop: Meet Our Artisans</title>
+      <link>https://moriwoodworkers.vercel.app/blog/meet-our-artisans</link>
+      <description>Get to know the skilled hands behind Mori Woodworkers. Our artisans share their passion for craftsmanship and dedication to creating heirloom-quality furniture.</description>
+      <pubDate>Tue, 02 Jan 2025 10:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://moriwoodworkers.vercel.app/blog/meet-our-artisans</guid>
+    </item>
+
+  </channel>
+</rss>
