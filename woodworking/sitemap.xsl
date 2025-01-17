@@ -41,7 +41,7 @@
             border-bottom: 1px solid #ddd;
           }
           .item h2 {
-            color: #333;
+            color: #fd7835;;
             margin: 0 0 10px;
           }
           .item a {
