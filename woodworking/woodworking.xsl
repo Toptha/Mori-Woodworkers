@@ -1,57 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:mori="https://moriwoodworkers.vercel.app/"
-    exclude-result-prefixes="mori">
-    
-    <xsl:output method="html" indent="yes" />
-    
-    <xsl:template match="/">
-        <html>
-            <head>
-                <title>Serene Mori Woodworkers</title>
-            </head>
-            <body>
-               <center>
-                <h1>Serene Mori Woodworkers</h1>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Wood-Type</th>
-                            <th>Hardness</th>
-                            <th>Price</th>
-                            <th>Origin</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <xsl:for-each select="//mori:wood">
-                            <xsl:sort select="mori:hardness" data-type="number" order="descending" />
-                            <tr>
-                                <td>
-                                    <xsl:value-of select="mori:type" />
-                                </td>
-                                <td>
-                                    <xsl:value-of select="mori:hardness" />
-                                </td>
-                                <td>
-                                    <xsl:choose>
-                                        <xsl:when test="mori:price &lt; 100">
-                                            <xsl:value-of select="concat('$', mori:price, ' (Budget)')" />
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:value-of select="concat('$', mori:price, ' (Premium)')" />
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </td>
-                                <td>
-                                    <xsl:value-of select="mori:origin" />
-                                </td>
-                            </tr>
-                        </xsl:for-each>
-                    </tbody>
-                </table>
-                </center> 
-            </body>
-        </html>
-    </xsl:template>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+  <xsl:output method="html" encoding="UTF-8" indent="yes"/>
+
+  <xsl:template match="/rss">
+    <html>
+      <head>
+        <title>
+          <xsl:value-of select="channel/title"/>
+        </title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+          }
+          .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+          }
+          .header h1 {
+            margin: 0;
+          }
+          .content {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          .item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+          }
+          .item h2 {
+            color: #333;
+            margin: 0 0 10px;
+          }
+          .item a {
+            color: #007BFF;
+            text-decoration: none;
+          }
+          .item a:hover {
+            text-decoration: underline;
+          }
+          .item p {
+            color: #555;
+          }
+          .footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: #fff;
+            margin-top: 20px;
+          }
+          .dark-mode {
+            background-color: #1e1e1e;
+            color: #cfcfcf;
+          }
+          .dark-mode .header {
+            background-color: #000;
+          }
+          .dark-mode .footer {
+            background-color: #000;
+          }
+          .expand {
+            cursor: pointer;
+            color: #007BFF;
+            text-decoration: underline;
+          }
+        </style>
+        <script>
+          function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+          }
+          function toggleExpand(id) {
+            const desc = document.getElementById(id);
+            const isExpanded = desc.style.display === 'block';
+            desc.style.display = isExpanded ? 'none' : 'block';
+          }
+        </script>
+      </head>
+      <body>
+        <div class="header">
+          <h1>
+            <xsl:value-of select="channel/title"/>
+          </h1>
+          <p>
+            <xsl:value-of select="channel/description"/>
+          </p>
+          <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        </div>
+        <div class="content">
+          <xsl:for-each select="channel/item">
+            <div class="item">
+              <h2>
+                <a href="{link}" target="_blank">
+                  <xsl:value-of select="title"/>
+                </a>
+              </h2>
+              <p class="expand" onclick="toggleExpand('desc-{position()}')">Read more...</p>
+              <p id="desc-{position()}" style="display: none;">
+                <xsl:value-of select="description"/>
+              </p>
+              <p><small>Published on: <xsl:value-of select="pubDate"/></small></p>
+            </div>
+          </xsl:for-each>
+        </div>
+        <div class="footer">
+          <p>&#169; <xsl:value-of select="substring(channel/lastBuildDate, 13, 4)"/> Mori Woodworkers. All rights reserved.</p>
+        </div>
+      </body>
+    </html>
+  </xsl:template>
+
 </xsl:stylesheet>
