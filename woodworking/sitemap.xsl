@@ -35,6 +35,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #fd7835;
           }
+          .content p{
+            color: #fd7835;
+          }
           .item {
             margin-bottom: 20px;
             padding-bottom: 20px;
