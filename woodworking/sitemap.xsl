@@ -96,7 +96,6 @@
           <p>
             <xsl:value-of select="channel/description"/>
           </p>
-          <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
         </div>
         <div class="content">
           <xsl:for-each select="channel/item">
