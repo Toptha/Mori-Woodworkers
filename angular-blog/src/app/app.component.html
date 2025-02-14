@@ -1,0 +1,13 @@
+<div class="container">
+  <h1 class="title">Woodworking Insights Blog</h1>
+  <div *ngFor="let post of blogPosts" class="blog-card" (click)="selectPost(post)">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.snippet }}</p>
+  </div>
+  
+  <div *ngIf="selectedPost" class="post-modal">
+    <h2>{{ selectedPost.title }}</h2>
+    <p>{{ selectedPost.content }}</p>
+    <button (click)="closePost()">Close</button>
+  </div>
+</div>
