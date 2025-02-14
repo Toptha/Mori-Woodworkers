@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="moriWoodworkersApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene Mori Woodworkers - The Journal</title>
+    <link rel="icon" href="Images/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+    <style>
+        :root {
+            --color-bg: #1a1a1a;
+            --color-text: #cccccc;
+            --color-accent: #fd7835;
+            --color-dark: #222222;
+            --font: Jetbrains Mono, Menio, Monaco, 'Courier New', monospace, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            overflow-x: hidden;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+            background-color: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav__logo, .nav__link {
+            color: var(--color-accent);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .nav__logo {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .nav__menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav__link {
+            font-size: 0.875rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        /* Blog Header Styles */
+        .blog-header {
+            height: 70vh;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), 
+                url('https://nakashimawoodworkers.com/wp-content/uploads/2018/07/Nakashima_01_0118-768x512.jpg') center/cover no-repeat fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 0;
+        }
+
+        .blog-title-container {
+            max-width: 800px;
+        }
+
+        .blog-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            position: relative;
+        }
+
+        .blog-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--color-accent);
+        }
+
+        .blog-description {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            font-style: italic;
+        }
+
+        /* Blog Content Styles */
+        .blog-container {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .blog-search {
+            position: relative;
+            width: 300px;
+        }
+
+        .blog-search input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: none;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--color-text);
+            font-family: var(--font);
+        }
+
+        .blog-search input:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .blog-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+        }
+
+        .blog-filter select {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--color-text);
+            font-family: var(--font);
+            cursor: pointer;
+        }
+
+        .blog-filter select:focus {
+            outline: none;
+        }
+
+        /* Blog Grid Styles */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .blog-card {
+            background-color: var(--color-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-image-container {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.1);
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--color-accent);
+            color: #1a1a1a;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .blog-content {
+            padding: 2rem 1.5rem;
+        }
+
+        .blog-date {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .blog-card-title {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .blog-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            position: relative;
+            padding-bottom: 0.25rem;
+            font-weight: bold;
+        }
+
+        .blog-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Author info */
+        .blog-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 0.75rem;
+        }
+
+        .author-name {
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+
+        /* Pagination Styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+
+        .pagination-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 0.5rem;
+            border-radius: 50%;
+            background-color: var(--color-dark);
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .pagination-item:hover, .pagination-item.active {
+            background-color: var(--color-accent);
+            color: var(--color-dark);
+            transform: scale(1.1);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            height: 100%;
+            width: 300px;
+            background-color: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 1.5rem;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+            opacity: 0;
+            z-index: 1000;
+            border-radius: 20px 0 0 20px;
+            text-align: center;
+        }
+
+        .sidebar.active {
+            transform: translateX(-300px);
+            opacity: 1;
+        }
+
+        .sidebar__link {
+            color: var(--color-accent);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar__link:hover {
+            color: var(--color-dark);
+            background-color: var(--color-accent);
+        }
+
+        .nav__more {
+            position: relative;
+        }
+
+        .nav__ellipsis {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--color-accent);
+        }
+
+        /* Loading spinner */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .loader-circle {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(253, 120, 53, 0.2);
+            border-top-color: var(--color-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* No results message */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* New Post Form Styles */
+        .new-post-form {
+            background-color: var(--color-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .new-post-form h2 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--color-text);
+            font-family: var(--font);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        .submit-btn {
+            background-color: var(--color-accent);
+            color: var(--color-dark);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #e66a2e;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1200px) {
+            .blog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-header {
+                height: 50vh;
+            }
+            
+            .blog-title {
+                font-size: 2.5rem;
+            }
+            
+            .blog-description {
+                font-size: 1rem;
+            }
+            
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .blog-search {
+                width: 100%;
+            }
+        }
+
+        /* Animation classes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body ng-controller="BlogController">
+    <nav class="nav">
+        <a href="index.html" class="nav__logo">Serene Mori Woodworkers</a>
+        <ul class="nav__menu">
+            <li><a href="furniture.html" class="nav__link">Furniture</a></li>
+            <li><a href="philosophy.html" class="nav__link">Philosophy</a></li>
+            <li class="nav__more">
+                <span class="nav__ellipsis" style="color: #fd7835;">•••</span>
+                <div class="sidebar">
+                    <br>
+                    <a href="Login.html" class="sidebar__link">Login/Signup</a>
+                    <a href="furniture.html" class="sidebar__link">Furniture</a>
+                    <a href="philosophy.html" class="sidebar__link">Philosophy</a>
+                    <a href="create.html" class="sidebar__link">Create Your own <br> Design</a>
+                    <a href="about.html" class="sidebar__link">About Us</a>
+                    <a href="index.html" class="sidebar__link">Home</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="blog-header">
+        <div class="blog-title-container animate__animated animate__fadeIn">
+            <h1 class="blog-title">The Woodworker's Journal</h1>
+            <p class="blog-description">"Each grain tells a story, each join creates connection. We document our journey through wood, design, and craft."</p>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <div class="new-post-form">
+            <h2>Create a New Blog Post</h2>
+            <form ng-submit="submitNewPost()">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" ng-model="newPost.title" required>
+                </div>
+                <div class="form-group">
+                    <label for="excerpt">Excerpt</label>
+                    <textarea id="excerpt" ng-model="newPost.excerpt" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" ng-model="newPost.category" required>
+                        <option value="Technique">Techniques</option>
+                        <option value="Design">Design</option>
+                        <option value="Materials">Materials</option>
+                        <option value="Philosophy">Philosophy</option>
+                        <option value="Projects">Projects</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image URL</label>
+                    <input type="url" id="image" ng-model="newPost.image" required>
+                </div>
+                <button type="submit" class="submit-btn">Submit Post</button>
+            </form>
+        </div>
+
+        <div class="controls-row">
+            <div class="blog-search">
+                <input type="text" ng-model="searchText" placeholder="Search articles...">
+            </div>
+            <div class="blog-filter">
+                <select ng-model="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Technique">Techniques</option>
+                    <option value="Design">Design</option>
+                    <option value="Materials">Materials</option>
+                    <option value="Philosophy">Philosophy</option>
+                    <option value="Projects">Projects</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Loading spinner -->
+        <div class="loader" ng-if="isLoading">
+            <div class="loader-circle"></div>
+        </div>
+
+        <!-- No results message -->
+        <div class="no-results" ng-if="!isLoading && filteredPosts.length === 0">
+            No posts found matching your criteria.
+        </div>
+
+        <!-- Blog grid -->
+        <div class="blog-grid" ng-if="!isLoading && filteredPosts.length > 0">
+            <article class="blog-card fade-in-up" ng-repeat="post in filteredPosts | startFrom:(currentPage-1)*postsPerPage | limitTo:postsPerPage" ng-class="'delay-' + ($index % 6 + 1)">
+                <div class="blog-image-container">
+                    <span class="blog-category">{{post.category}}</span>
+                    <img ng-src="{{post.image}}" alt="{{post.title}}" class="blog-image">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-date">{{post.date | date:'MMMM d, yyyy'}}</span>
+                    <h2 class="blog-card-title">{{post.title}}</h2>
+                    <p class="blog-excerpt">{{post.excerpt}}</p>
+                    <a href="#" class="blog-link">Read more</a>
+                    
+                    <div class="blog-author">
+                        <img ng-src="{{post.author.avatar}}" alt="{{post.author.name}}" class="author-avatar">
+                        <span class="author-name">{{post.author.name}}</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="pagination" ng-if="totalPages > 1">
+            <a href="#" class="pagination-item" ng-click="setPage(currentPage - 1)" ng-if="currentPage > 1">&laquo;</a>
+            <a href="#" class="pagination-item" ng-class="{active: currentPage === page}" ng-click="setPage(page)" ng-repeat="page in pageArray()">{{page}}</a>
+            <a href="#" class="pagination-item" ng-click="setPage(currentPage + 1)" ng-if="currentPage < totalPages">&raquo;</a>
+        </div>
+    </main>
+
+    <script>
+        angular.module('moriWoodworkersApp', [])
+            .filter('startFrom', function() {
+                return function(input, start) {
+                    if (!input || !input.length) { return []; }
+                    start = +start;
+                    return input.slice(start);
+                };
+            })
+            .controller('BlogController', function($scope, $timeout) {
+                // Simulating loading
+                $scope.isLoading = true;
+                
+                // Blog post data
+                $scope.allPosts = [
+                    {
+                        title: "The Art of Finding Balance in Wood",
+                        excerpt: "Every piece of wood carries its own character. We explore how to work with—rather than against—the natural tendencies of different wood species to create harmony in design.",
+                        date: new Date(2025, 1, 10),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2019/04/nakashima-concordia.jpg",
+                        category: "Design",
+                        author: {
+                            name: "Mori Ayaka",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    },
+                    {
+                        title: "The Invisible Art of Joinery",
+                        excerpt: "Joinery is the silent backbone of furniture that endures for generations. We delve into various traditional techniques and their appropriate applications in modern woodworking.",
+                        date: new Date(2025, 0, 28),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2019/04/nakashima-dining-table-detail-1.jpg",
+                        category: "Technique",
+                        author: {
+                            name: "Kevin Tanaka",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    },
+                    {
+                        title: "Tools of the Trade: Old and New",
+                        excerpt: "The evolution of woodworking tools reflects our changing relationship with craftsmanship. We explore which traditional tools remain irreplaceable and which modern innovations truly enhance our work.",
+                        date: new Date(2025, 0, 15),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/furniture.image_.03.jpg",
+                        category: "Technique",
+                        author: {
+                            name: "Sarah Chen",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    },
+                    {
+                        title: "The Journey of Wood Selection",
+                        excerpt: "Responsible sourcing is both an ethical imperative and a practical consideration for quality. We share our process for selecting wood that honors both the tree's heritage and its future purpose.",
+                        date: new Date(2024, 11, 22),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2018/07/Nakashima_01_0118-768x512.jpg",
+                        category: "Materials",
+                        author: {
+                            name: "James Winters",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    },
+                    {
+                        title: "Design Philosophy: Finding Voice in Simplicity",
+                        excerpt: "Restraint in design often reveals the true personality of the material. We discuss how minimalist approaches can actually highlight the natural beauty that's already present in the wood.",
+                        date: new Date(2024, 11, 5),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.01-768x1120.jpg",
+                        category: "Philosophy",
+                        author: {
+                            name: "Mori Ayaka",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    },
+                    {
+                        title: "The Final Touch: Our Approach to Finishing",
+                        excerpt: "A finish should protect while enhancing the wood's innate qualities. We discuss our natural oil methodology and how different finishes can dramatically change the personality of a piece.",
+                        date: new Date(2024, 10, 18),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg",
+                        category: "Technique",
+                        author: {
+                            name: "Li Wei",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    },
+                    {
+                        title: "Creating a Live-Edge Table: Start to Finish",
+                        excerpt: "Follow along as we document the entire process of transforming a raw slab into a functional work of art, from initial selection to final placement in a client's home.",
+                        date: new Date(2024, 10, 2),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/furniture.image_.03.jpg",
+                        category: "Projects",
+                        author: {
+                            name: "Kevin Tanaka",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    },
+                    {
+                        title: "The Sustainable Workshop: Reducing Our Environmental Impact",
+                        excerpt: "From dust collection to finish selection, every aspect of a woodworking practice can be optimized for sustainability. We share our ongoing journey to minimize waste and environmental harm.",
+                        date: new Date(2024, 9, 25),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2018/07/Nakashima_01_0118-768x512.jpg",
+                        category: "Philosophy",
+                        author: {
+                            name: "Mori Ayaka",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    },
+                    {
+                        title: "The Poetry of Imperfection: Embracing Wood's Character",
+                        excerpt: "Knots, spalting, and irregular grain patterns aren't flaws—they're opportunities. Learn how we incorporate natural 'imperfections' to create pieces with unique personality and visual interest.",
+                        date: new Date(2024, 9, 10),
+                        image: "https://nakashimawoodworkers.com/wp-content/uploads/2019/04/nakashima-concordia.jpg",
+                        category: "Design",
+                        author: {
+                            name: "Sarah Chen",
+                            avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                        }
+                    }
+                ];
+
+                // Pagination setup
+                $scope.currentPage = 1;
+                $scope.postsPerPage = 6;
+                
+                // Category and search filters
+                $scope.categoryFilter = '';
+                $scope.searchText = '';
+
+                // New post form
+                $scope.newPost = {
+                    title: '',
+                    excerpt: '',
+                    category: '',
+                    image: ''
+                };
+
+                // Calculate filtered posts and total pages
+                $scope.updateFilteredPosts = function() {
+                    $scope.filteredPosts = $scope.allPosts.filter(function(post) {
+                        // Category filter
+                        if ($scope.categoryFilter && post.category !== $scope.categoryFilter) {
+                            return false;
+                        }
+                        
+                        // Search text filter
+                        if ($scope.searchText) {
+                            const searchLower = $scope.searchText.toLowerCase();
+                            return post.title.toLowerCase().includes(searchLower) || 
+                                post.excerpt.toLowerCase().includes(searchLower) ||
+                                post.category.toLowerCase().includes(searchLower) ||
+                                post.author.name.toLowerCase().includes(searchLower);
+                        }
+                        
+                        return true;
+                    });
+                    
+                    $scope.totalPages = Math.ceil($scope.filteredPosts.length / $scope.postsPerPage);
+                    
+                    // Reset to page 1 if current page is now invalid
+                    if ($scope.currentPage > $scope.totalPages) {
+                        $scope.currentPage = 1;
+                    }
+                };
+
+                // Page navigation
+                $scope.setPage = function(page) {
+                    if (page >= 1 && page <= $scope.totalPages) {
+                        $scope.currentPage = page;
+                    }
+                    return false; // Prevent default link behavior
+                };
+
+                // Generate array of page numbers
+                $scope.pageArray = function() {
+                    let pages = [];
+                    for (let i = 1; i <= $scope.totalPages; i++) {
+                        pages.push(i);
+                    }
+                    return pages;
+                };
+
+                // Watch for filter changes
+                $scope.$watch('categoryFilter', function() {
+                    $scope.updateFilteredPosts();
+                });
+
+                $scope.$watch('searchText', function() {
+                    $scope.updateFilteredPosts();
+                });
+
+                // Submit new post
+                $scope.submitNewPost = function() {
+                    // Add current date and default author
+                    $scope.newPost.date = new Date();
+                    $scope.newPost.author = {
+                        name: "Guest Author",
+                        avatar: "https://nakashimawoodworkers.com/wp-content/uploads/2017/05/home.promo_.03-320x464.jpg"
+                    };
+
+                    // Add new post to the beginning of allPosts array
+                    $scope.allPosts.unshift($scope.newPost);
+
+                    // Reset form
+                    $scope.newPost = {
+                        title: '',
+                        excerpt: '',
+                        category: '',
+                        image: ''
+                    };
+
+                    // Update filtered posts
+                    $scope.updateFilteredPosts();
+                };
+
+                // Initial loading simulation
+                $timeout(function() {
+                    $scope.isLoading = false;
+                    $scope.updateFilteredPosts();
+                }, 1000);
+
+                // Sidebar toggle
+                $timeout(function() {
+                    const ellipsisButton = document.querySelector('.nav__ellipsis');
+                    const sidebar = document.querySelector('.sidebar');
+
+                    ellipsisButton.addEventListener('click', function() {
+                        sidebar.classList.toggle('active');
+                    });
+
+                    document.addEventListener('click', function(event) {
+                        if (!sidebar.contains(event.target) && !ellipsisButton.contains(event.target)) {
+                            sidebar.classList.remove('active');
+                        }
+                    });
+                });
+            });
+    </script>
+</body>
+</html>
