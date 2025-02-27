@@ -315,14 +315,13 @@
         </div>
         <div class="formBx">
             <div class="form signinForm">
-                <form>
+                <form id="signinForm">
                     <h3>Welcome Back</h3>
                     <div class="input-group">
-                        <input type="text" name="username" required>
-                        <label>Username</label>
+                        <input type="text" name="email" required>
+                        <label>Email</label>
                     </div>
                     <div id="signinUsernameError" class="error"></div>
-                    
                     <div class="input-group">
                         <input type="password" name="password" required>
                         <label>Password</label>
@@ -335,7 +334,7 @@
                 </form>
             </div>
             <div class="form signupForm">
-                <form>
+                <form id="signupForm">
                     <h3>Sign Up</h3>
                     <div class="input-group">
                         <input type="text" name="username" required>
@@ -397,64 +396,109 @@ signinBtn.onclick = function() {
 const signinForm = document.querySelector('.signinForm');
 const signupForm = document.querySelector('.signupForm');
 
-signinForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if(validateSigninForm()) {
-        const formData = new FormData();
-        formData.append('username', this.querySelector('[name="username"]').value.trim());
-        formData.append('password', this.querySelector('[name="password"]').value.trim());
+document.getElementById("signinForm").addEventListener("submit", async function (e) {
+    e.preventDefault(); 
 
-        fetch('login.php', {
-            method: 'POST',
-            body: formData,
-            credentials: 'include' 
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.success) {
-                localStorage.setItem('username', data.username);
-                window.location.replace('index.html');
-            } else {
-                alert(data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred during login');
+    // Get the input values and trim whitespace
+    const email = document.querySelector('.signinForm [name="email"]').value.trim();
+    const password = document.querySelector('.signinForm [name="password"]').value.trim();
+
+    console.log("Attempting login with:", { email });
+
+    if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+    }
+
+    try {
+        // First, check what's in the request body by logging it
+        const requestBody = JSON.stringify({ email, password });
+        console.log("Request payload:", requestBody);
+
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: requestBody
         });
+
+        console.log("Response status:", response.status);
+        
+        // Try to parse the response as text first to debug any JSON parsing issues
+        const responseText = await response.text();
+        console.log("Raw response:", responseText);
+        
+        // Then parse as JSON if possible
+        let data;
+        try {
+            data = JSON.parse(responseText);
+            console.log("Parsed response data:", data);
+        } catch (err) {
+            console.error("Error parsing response as JSON:", err);
+            alert("Server response was not valid JSON. Check console for details.");
+            return;
+        }
+
+        if (response.ok) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            alert("Login successful!");
+            window.location.href = "index.html";
+        } else {
+            alert(data.message || "Login failed");
+        }
+    } catch (error) {
+        console.error("Fetch Error:", error);
+        alert("An error occurred during login: " + error.message);
     }
 });
 
-signupForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if(validateSignupForm()) {
-        const formData = new FormData();
-        formData.append('username', this.querySelector('[name="username"]').value.trim());
-        formData.append('email', this.querySelector('[name="email"]').value.trim());
-        formData.append('password', this.querySelector('[name="password"]').value.trim());
 
-        fetch('sign.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            if(data.includes("Error")) {
-                alert(data);
-            } else {
-                window.location.href = 'index.html';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred during signup');
+signupForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const username = this.querySelector('[name="username"]').value.trim();
+    const email = this.querySelector('[name="email"]').value.trim();
+    const password = this.querySelector('[name="password"]').value.trim();
+    const confirmPassword = this.querySelector('[name="confirm_password"]').value.trim();
+
+    if (!username || !email || !password || !confirmPassword) {
+        alert("All fields are required!");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:5000/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, email, password })
         });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Signup successful! Please login.");
+            window.location.reload();
+        } else {
+            alert(data.message || "Signup failed");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred during signup.");
     }
 });
+
 
 function validateSigninForm() {
     const form = document.querySelector('.signinForm');
-    const username = form.querySelector('[name="username"]').value.trim();
+    const username = form.querySelector('[name="email"]').value.trim();
     const password = form.querySelector('[name="password"]').value.trim();
     let isValid = true;
 
@@ -474,6 +518,7 @@ function validateSigninForm() {
 
     return isValid;
 }
+
 
 function validateSignupForm() {
     const form = document.querySelector('.signupForm');
