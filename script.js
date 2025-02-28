@@ -37,4 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const loginLink = document.querySelector('.sidebar__link[href="Login.html"]');
+
+    if (localStorage.getItem('token')) {
+        loginLink.textContent = "Log Out";
+        loginLink.href = "#"; 
+        loginLink.addEventListener("click", function () {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            alert("Logged out successfully!");
+            window.location.reload();
+        });
+    }
+});
 
