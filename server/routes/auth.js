@@ -77,6 +77,32 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/profile", async (req, res) => {
+    try {
+        // Extract token from headers
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            return res.status(401).json({ message: "No token provided" });
+        }
+
+        // Verify token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (!decoded) {
+            return res.status(401).json({ message: "Invalid token" });
+        }
+
+        // Fetch user data from MongoDB
+        const user = await User.findById(decoded.id).select("-password");
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json(user);
+    } catch (error) {
+        console.error("Profile fetch error:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
 
 
 module.exports = router;
