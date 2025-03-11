@@ -99,10 +99,9 @@
     <div class="profile-container">
         <div class="profile-sidebar">
             <img src="avatar.png" id="userAvatar" alt="User Avatar">
-            <input type="file" id="uploadAvatar" accept="image/*" onchange="uploadProfilePicture(event)" style="display: none;">
             <h2 id="displayUsername">Username</h2>
-            <h3 id="displayEmail">Email</h3>
             <button class="btn" onclick="enableEdit()">Edit Profile</button>
+            <button class="btn" id="changePfpBtn" onclick="document.getElementById('uploadAvatar').click()" style="display: none;">Change Profile Picture</button>
             <button class="btn" onclick="saveProfile()" style="display: none;">Save Changes</button>
             <button class="btn" onclick="logout()">Logout</button>
         </div>
@@ -139,6 +138,7 @@
             emailElem.innerHTML = `<input type='email' id='email' class='editable' value='${emailElem.textContent}'>`;
 
             document.querySelector("button[onclick='enableEdit()']").style.display = "none";
+document.getElementById("changePfpBtn").style.display = "block";
             document.querySelector("button[onclick='saveProfile()']").style.display = "block";
         }
 
@@ -158,6 +158,7 @@
 
             if (response.ok) {
                 alert("Profile updated successfully!");
+                document.getElementById("changePfpBtn").style.display = "none";
                 location.reload();
             } else {
                 alert("Error updating profile.");
